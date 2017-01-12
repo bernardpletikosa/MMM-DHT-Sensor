@@ -1,7 +1,7 @@
 # MMM-DHT-Sensor
 ###Work in progress
 
-This an extension for the [MagicMirror](https://github.com/MichMich/MagicMirror). 
+This an extension for the [MagicMirror](https://github.com/MichMich/MagicMirror).
 
 It monitors temperature and humidity from [DHT11 sensor](https://www.adafruit.com/product/386).
 
@@ -10,7 +10,7 @@ Used on my personal [Smart mirror project](https://github.com/bernardpletikosa/s
 <img style="width:400px; height:350px;" src="widget.jpg">
 
 ## Installation
-1. Navigate into your MagicMirror's `modules` folder 
+1. Navigate into your MagicMirror's `modules` folder
 2. Clone repository `git clone https://github.com/bernardpletikosa/MMM-DHT-Sensor`
 3. Go to newly created directory
 4. Execute `npm install` to install the node dependencies.
@@ -47,8 +47,9 @@ Configurations properties
 	<tbody>
 		<tr>
 			<td><code>sensorType</code></td>
-			<td>TODO
+			<td>Supports DHT11, DHT22 and AM2302 sensors
 				<br><b>Type:</b> <code>int</code>
+				<br><b>Values:</b> <code>11</code>|<code>22</code>
 				<br><b>Default:</b> <code>11</code>
 			</td>
 		</tr>
@@ -91,9 +92,14 @@ Configurations properties
 </table>
 
 ## Developer Notes
-For more details abput BCM pin numbers check [here](http://www.raspberrypi-spy.co.uk/2012/06/simple-guide-to-the-rpi-gpio-header-and-pins]
+For more details abput BCM pin numbers check [here](http://www.raspberrypi-spy.co.uk/2012/06/simple-guide-to-the-rpi-gpio-header-and-pins)
 
 ## Dependencies
 - [dht-sensor](https://github.com/roland-vachter/rpi-dht-sensor) (installed via `npm install`)
 
-Thanks to [roland-vachter](https://github.com/roland-vachter) and [momenso](https://github.com/momenso) for the library.
+### Thanks
+Thanks for the library
+
+[roland-vachter](https://github.com/roland-vachter)
+
+[momenso](https://github.com/momenso)

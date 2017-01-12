@@ -9,35 +9,37 @@ const NodeHelper = require('node_helper');
 const RpiDht = require('rpi-dht-sensor');
 
 module.exports = NodeHelper.create({
-  	start: function () {
-		console.log("Starting helper: " + this.name);
-	},
+    start: function() {
+        console.log("Starting helper: " + this.name);
+    },
 
-  	socketNotificationReceived: function(notification, payload) {
-	      	const self = this;
-	      	this.config = payload;
+    socketNotificationReceived: function(notification, payload) {
+        const self = this;
+        this.config = payload;
 
-	      	this.dht = new RpiDht.DHT11(this.config.sensorPIN);
-		
-		setInterval(function() {
-			self.checkTemperature();
-		}, this.config.updateInterval);
-  	},
+        if (this.config.sensorType === 11) {
+            this.dht = new RpiDht.DHT11(this.config.sensorPIN);
+        } else if (this.config.sensorType === 22) {
+            this.dht = new RpiDht.DHT22(this.config.sensorPIN);
+        } else {
+            console.log("Error in " + this.name + " sensorType unsupported.");
+        }
 
-	checkTemperature: function(){
-		const self = this;
+        setInterval(function() {
+            self.checkTemperature();
+        }, this.config.updateInterval);
+    },
 
-		var values = this.dht.read();
-		var temp = values.temperature.toFixed(1);
-		var hum = values.humidity.toFixed(1);
+    checkTemperature: function() {
+        const self = this;
 
-		console.log("T: " + temp + " H: " + hum);				
-		
-		if(temp > 0){
-			self.sendSocketNotification('DHT_TEMPERATURE', temp);
-		}
-		if(hum > 0){
-			self.sendSocketNotification('DHT_HUMIDITY', hum);
-		}
-	}
+        var readout = this.dht.read();
+        var temp = readout.temperature.toFixed(1);
+        var hum = readout.humidity.toFixed(1);
+
+        if (hum > 0) {
+            self.sendSocketNotification('DHT_TEMPERATURE', temp);
+            self.sendSocketNotification('DHT_HUMIDITY', hum);
+        }
+    }
 });
